@@ -15,8 +15,8 @@ def get_size(bytes, suffix="B"):
 # System overview
 uname = platform.uname()
 system_name = uname.system
-Release = uname.release
-Version = uname.version
+release = uname.release
+version = uname.version
 from time import gmtime, strftime
 time = str(strftime("%d/%m/%y %H:%M:%S", gmtime()))
 
@@ -27,8 +27,7 @@ boot_time =  (str(bt.day) + "/" + str(bt.month) + "/" + str(bt.year) + " " + str
 
 # CPU Information
 # number of cores
-Physical_cores = psutil.cpu_count(logical=False)
-Total_cores = psutil.cpu_count(logical=True)
+total_cores = psutil.cpu_count(logical=True)
 
 # CPU frequencies
 cpufreq = psutil.cpu_freq()
@@ -42,9 +41,9 @@ Total_CPU_Usage = str(psutil.cpu_percent()) + "%"
 
 # Memory Information
 svmem = psutil.virtual_memory()
-Total_Memory = get_size(svmem.total)
-Memory_Used = get_size(svmem.used)
-Memory_Percentage = str(svmem.percent)
+total_memory = get_size(svmem.total)
+memory_used = get_size(svmem.used)
+memory_percentage = str(svmem.percent)
 
 slack_msg = {
     "text": "Gateway Action",
@@ -76,7 +75,7 @@ slack_msg = {
                 },
                 {
                     "type": "plain_text",
-                    "text": system_name + "\n release: " + Release + "\n version: " + Version 
+                    "text": system_name + "\n release: " + release + "\n version: " + version 
                 },
                 {
                         "type": "plain_text",
@@ -112,7 +111,7 @@ slack_msg = {
                 },
                 {
                     "type": "plain_text",
-                    "text": str(Total_CPU_Usage) + " from " + str(Total_cores) + " cores"
+                    "text": str(Total_CPU_Usage) + " from " + str(total_cores) + " cores"
                 },
                 {
                     "type": "plain_text",
@@ -128,7 +127,7 @@ slack_msg = {
                 },
                 {
                     "type": "plain_text",
-                    "text":  Memory_Used + " from " + Total_Memory
+                    "text":  memory_used + " from " + total_memory
                 },
                 {
                     "type": "plain_text",
@@ -136,7 +135,7 @@ slack_msg = {
                 },
                 {
                     "type": "plain_text",
-                    "text":  Memory_Percentage + "%"
+                    "text":  memory_percentage + "%"
                 }
             ]
         }
@@ -144,5 +143,5 @@ slack_msg = {
 }
 
 #Sending message for slack
-web_hook_url = 'https://hooks.slack.com/services/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'
+web_hook_url = 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
 requests.post(web_hook_url,data=json.dumps(slack_msg))
